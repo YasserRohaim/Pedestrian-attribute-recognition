@@ -15,7 +15,7 @@ import wandb
 # Initialize wandb
 run = wandb.init(project='demographics', config={
     "learning_rate": 1e-3,
-    "architecture": "efficientnet",
+    "architecture": "resnet",
     "dataset": "age and gender",
     "epochs": 50,
     "patience": 5,  # Early stopping patience
