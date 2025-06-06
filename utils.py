@@ -89,19 +89,9 @@ class ImageDatasetPT(Dataset):
             age_label = torch.tensor(age_labels)
             
             return image, (gender_label, age_label)
-        if 'Side' in self.label_columns:
-            view_labels = self.data.iloc[idx][LABEL_GROUPS['view']].values.astype(np.float32)
-            view_labels = torch.tensor(view_labels)
-            return image, view_labels
-        if 'Boots' in self.label_columns:
-            lower_cloth = self.data.iloc[idx][LABEL_GROUPS['lower_clothing']].values.astype(np.float32)
-            lower_cloth = torch.tensor(lower_cloth)
-            return image, lower_cloth
-        if 'UpperLogo' in self. label_columns:
-            upper_cloth = self.data.iloc[idx][LABEL_GROUPS['upper_clothing']].values.astype(np.float32)
-            upper_cloth=torch.tensor(upper_cloth)
-            return image, upper_cloth
-        if 'Hat' in self.label_columns:
-            accesories=self.data.iloc[idx][LABEL_GROUPS['accessories']].values.astype(np.float32)
-            accesories=torch.tensor(accesories)
-            return image, accesories
+        else:
+
+            labels = self.data.iloc[idx][self.label_columns].values.astype(np.float32)
+            labels = torch.tensor(labels)
+            return image, labels
+      
