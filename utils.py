@@ -51,6 +51,12 @@ LABEL_GROUPS = {
     "upper_clothing": ['ShortSleeve', 'LongSleeve', 'UpperStride', 'UpperLogo', 'UpperPlaid', 'UpperSplice', 'LongCoat'],
     "lower_clothing": ['LowerStripe', 'LowerPattern', 'Trousers', 'Shorts', 'Skirt&Dress', 'boots'],
 }
+transform = transforms.Compose([
+    transforms.Resize((256, 128)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+])
+      
 
 
 class ImageDatasetPT(Dataset):
@@ -81,17 +87,16 @@ class ImageDatasetPT(Dataset):
             ])
             image = transform(image)
         
-        if "Female" in self.label_columns:
-            gender_label = torch.tensor(self.data.iloc[idx]["Female"]).float()
-            
-            # Age label (one-hot encoded for 3 classes)
+        if "Female" in self.label_columns and len(self.label_columns)==4:
+            gender_label = self.data.iloc[idx]["Female"]
             age_labels = self.data.iloc[idx][["AgeOver60", "Age18-60", "AgeLess18"]].values.astype(np.float32)
-            age_label = torch.tensor(age_labels)
-            
-            return image, (gender_label, age_label)
+            all_labels = np.concatenate([[gender_label], age_labels])
+            labels = torch.tensor(all_labels, dtype=torch.float32)
+            return image, labels
+
         else:
 
             labels = self.data.iloc[idx][self.label_columns].values.astype(np.float32)
             labels = torch.tensor(labels)
             return image, labels
-      
+        
