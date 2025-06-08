@@ -169,8 +169,7 @@ if __name__=="__main__":
             'train_accessories_loss': running_losses['accessories'] / total_samples,
             'train_upper_acc': running_corrects['upper'] / total_samples,
             'train_lower_acc': running_corrects['lower'] / total_samples,
-            'train_accessories_pos_rate': running_accessories_positives / (total_samples * len(LABEL_GROUPS['accessories']))
-        }
+            'train_accesory_acc': running_corrects['accessories'] / total_samples,        }
         
         print(f"\nEpoch {epoch+1} Clothing Summary:")
         for k, v in epoch_metrics.items():
