@@ -31,7 +31,7 @@ And evaluated on the [PA-100K benchmark paper](https://arxiv.org/pdf/1709.09930)
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/pedestrian-attribute-recognition.git
+git clone https://github.com/YasserRohaim/pedestrian-attribute-recognition.git
 cd pedestrian-attribute-recognition
 pip install -r requirements.txt
 ```
